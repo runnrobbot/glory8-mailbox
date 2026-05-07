@@ -1,4 +1,3 @@
-// src/pages/MailboxPage.jsx
 import { useState, useCallback, useEffect } from 'react'
 import { Menu, ChevronLeft } from 'lucide-react'
 import { MailboxProvider } from '../context/MailboxContext'
@@ -28,16 +27,13 @@ function MailboxInner({ currentUser, onSignOut }) {
   const [pendingToast,      setPendingToast]      = useState(null)
   const [mobileShowThread,  setMobileShowThread]  = useState(false)
 
-  // threadCollapsed: when true, thread panel is unmounted and list fills all width.
-  // A slim › strip appears at the right edge to re-expand.
+
   const [threadCollapsed, setThreadCollapsed] = useState(false)
 
-  // Mobile: show thread panel when a message is selected
   useEffect(() => {
     if (selectedMessage) setMobileShowThread(true)
   }, [selectedMessage?.id])
 
-  // Auto-expand thread panel when a new message is selected
   useEffect(() => {
     if (selectedMessage) setThreadCollapsed(false)
   }, [selectedMessage?.id])
@@ -63,7 +59,6 @@ function MailboxInner({ currentUser, onSignOut }) {
 
   useVisibilitySync(useCallback(() => { loadMessages(activeFolder) }, [loadMessages, activeFolder]))
 
-  // Keyboard shortcuts
   useEffect(() => {
     const handler = (e) => {
       const tag = document.activeElement?.tagName
@@ -106,7 +101,6 @@ function MailboxInner({ currentUser, onSignOut }) {
 
       <div style={{ display: 'flex', flex: 1, overflow: 'hidden', minWidth: 0, flexDirection: 'column' }}>
 
-        {/* ── Mobile top bar ── */}
         <div className="mb-topbar">
           {mobileShowThread && selectedMessage ? (
             <button onClick={() => setMobileShowThread(false)}
@@ -132,7 +126,6 @@ function MailboxInner({ currentUser, onSignOut }) {
         {/* ── Panel area ── */}
         <div style={{ flex: 1, overflow: 'hidden', display: 'flex', position: 'relative' }}>
 
-          {/* Message list — grows to fill all space when thread is collapsed */}
           <div className={[
             'panel-list',
             mobileShowThread    ? 'panel-list--hidden'   : '',
@@ -141,7 +134,6 @@ function MailboxInner({ currentUser, onSignOut }) {
             <MessageList onOpenShortcuts={() => setShortcutsOpen(true)} />
           </div>
 
-          {/* Thread panel — completely unmounted when collapsed (no overflow/overlap possible) */}
           {!threadCollapsed && (
             <div className={`panel-thread${mobileShowThread ? ' panel-thread--active' : ''}`}>
               {selectedMessage
@@ -156,7 +148,6 @@ function MailboxInner({ currentUser, onSignOut }) {
             </div>
           )}
 
-          {/* ‹ Expand strip — shown only when collapsed, desktop only */}
           {threadCollapsed && (
             <button
               className="thread-expand-strip"
@@ -279,8 +270,7 @@ function MailboxInner({ currentUser, onSignOut }) {
   )
 }
 
-// Normalize a realtime message (from useRealtime hook) into the same shape
-// as a message loaded via fetchMessages.
+
 function normalizeRealtimeMessage(raw, recipientRow = null) {
   return {
     id:             raw.id,
@@ -307,7 +297,7 @@ function normalizeRealtimeMessage(raw, recipientRow = null) {
     labels:         [],
     attachments:    [],
     auditLog:       [],
-    // recipientRowId is critical for markRead / moveToFolder
+    
     recipientRowId: recipientRow?.id || null,
   }
 }

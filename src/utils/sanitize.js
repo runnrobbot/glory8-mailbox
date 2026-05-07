@@ -1,4 +1,3 @@
-// src/utils/sanitize.js
 import DOMPurify from 'dompurify'
 
 const ALLOWED = {

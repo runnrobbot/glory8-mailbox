@@ -1,4 +1,3 @@
-// src/utils/time.js
 export function formatTime(ts) {
   const d = new Date(ts), now = new Date()
   const diff = now - d

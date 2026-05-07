@@ -1,10 +1,8 @@
-// src/pages/AuditLogsPage.jsx
-// Accessible only to SuperAdmin
 import { useState, useEffect, useCallback } from 'react'
 import { ArrowLeft, Search, RefreshCw, Shield } from 'lucide-react'
 import { supabase } from '../services/supabase'
 import { AvatarInitials } from '../components/AvatarInitials'
-import { formatFullDate, formatTime } from '../utils/time'
+import { formatTime } from '../utils/time'
 
 const ACTION_LABELS = {
   sent: { label: 'Sent', color: '#2563EB', bg: '#DBEAFE' },
@@ -20,7 +18,6 @@ const ACTION_LABELS = {
 
 function ActionBadge({ action }) {
   const cfg = ACTION_LABELS[action] || { label: action, color: '#374151', bg: '#F3F4F6' }
-  // Handle metadata-based actions like user_created, user_edited
   return (
     <span style={{ fontSize: 10, fontWeight: 700, padding: '2px 8px', borderRadius: 20, background: cfg.bg, color: cfg.color, letterSpacing: '0.04em', whiteSpace: 'nowrap' }}>
       {cfg.label}
@@ -80,7 +77,6 @@ export function AuditLogsPage({ currentUser, onBack }) {
       meta.toLowerCase().includes(search.toLowerCase())
   })
 
-  // Stats
   const actionCounts = logs.reduce((acc, l) => ({ ...acc, [l.action]: (acc[l.action] || 0) + 1 }), {})
 
   return (

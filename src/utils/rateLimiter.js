@@ -1,4 +1,3 @@
-// src/utils/rateLimiter.js
 export function createRateLimiter(limit, windowMs = 60_000) {
   const timestamps = []
 

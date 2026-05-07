@@ -451,4 +451,3 @@ export function MessageThread({ currentUser, onBack, showBackButton, onCollapse 
     </div>
   )
 }
-

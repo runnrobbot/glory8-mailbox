@@ -1,4 +1,3 @@
-// src/utils/ids.js
 export function genIdempotencyKey() {
   return `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`
 }
