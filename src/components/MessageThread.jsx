@@ -354,7 +354,6 @@ export function MessageThread({ currentUser, onBack, showBackButton, onCollapse 
         onCancel={closeConfirm}
       />
 
-      {/* ── Header ── */}
       <div style={{
         padding: '13px 14px 12px', background: '#fff', borderBottom: '1px solid #F0F1F3',
         display: 'flex', alignItems: 'flex-start', gap: 10, flexShrink: 0,

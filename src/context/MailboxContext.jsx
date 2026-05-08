@@ -1,11 +1,9 @@
-// src/context/MailboxContext.jsx
 import { createContext, useContext, useReducer, useCallback, useEffect, useRef } from 'react'
 import {
   fetchMessages, fetchThread, markRead,
   moveToFolder, toggleStar, fetchUnreadCounts, supabase, FOLDER,
 } from '../services/supabase'
 
-// FIX #9: cursor is now { timestamp, id } object instead of plain timestamp string
 function normalizeMessage(row) {
   const msg    = row.messages || {}
   const sender = msg.profiles || {}
@@ -43,7 +41,7 @@ const initialState = {
   unreadCounts:   {},
   isLoading:      false,
   hasMore:        true,
-  cursor:         null,   // FIX #9: { timestamp, id } | null
+  cursor:         null,   
   error:          null,
 }
 
@@ -59,7 +57,6 @@ function reducer(state, action) {
         ...state,
         isLoading: false,
         messages:  action.append ? dedupeById([...state.messages, ...normalized]) : normalized,
-        // FIX #9: composite cursor
         cursor:    last ? { timestamp: last.created_at, id: last.recipientRowId } : null,
         hasMore:   action.hasMore,
       }
